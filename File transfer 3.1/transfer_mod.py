@@ -28,7 +28,17 @@ def check_updates():
 
 def manual_updates():
     save =  filedialog.asksaveasfilename(initialdir = "/",title = "Select file",filetypes = (("jpeg files","*.jpg"),("all files","*.*")))
-    print('Manulay updated')
+print('Manulay updated')
+
+def pick_fileA():
+    global doc_nameA
+    fileA = filedialog.askdirectory()
+    doc_nameA = os.listdir(fileA)
+
+def pick_fileB():
+    global doc_nameB
+    fileB = filedialog.askdirectory()
+    doc_nameB = os.listdir(fileB)
 
 
 
