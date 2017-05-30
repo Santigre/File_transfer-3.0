@@ -12,11 +12,13 @@ def pick_fileA():
     global doc_nameA
     fileA = filedialog.askdirectory()
     doc_nameA = os.listdir(fileA)
+    show_nameA()
 
 def pick_fileB():
     global doc_nameB
     fileB = filedialog.askdirectory()
     doc_nameB = os.listdir(fileB)
+    show_nameB()
 
 def show_nameA():
     for x in doc_nameA:
@@ -48,14 +50,10 @@ label.grid(row = 0, column = 0)
 work_file = Button(root, text = "Work file", command = pick_fileA)
 work_file.grid(row = 1, column = 0, rowspan = 2, columnspan = 2)
 
-work_file_show = Button(root, text = "Work file show", command = show_nameA)
-work_file_show.grid(row = 3, column = 0, rowspan = 2, columnspan = 2)
 
 backup_file = Button(root, text = "Back up file", command = pick_fileB)
 backup_file.grid(row = 2, column = 0, rowspan = 2, columnspan = 2)
 
-backup_file_show = Button(root, text = "Back up File show", command = show_nameB)
-backup_file_show.grid(row = 4, column = 0, rowspan = 2, columnspan = 2)
 
 check = Button(root, text = "Save", command = manual_updates)
 check.grid(row = 5, column = 0, rowspan = 2, columnspan = 2)
