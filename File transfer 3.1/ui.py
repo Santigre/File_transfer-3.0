@@ -7,18 +7,36 @@ import os
 
 
 root = Tk()
+t = datetime.now()
 
 def pick_fileA():
     global doc_nameA
+    global fileA
     fileA = filedialog.askdirectory()
     doc_nameA = os.listdir(fileA)
+    print(fileA)
     show_nameA()
 
 def pick_fileB():
     global doc_nameB
+    global fileB
     fileB = filedialog.askdirectory()
     doc_nameB = os.listdir(fileB)
+    print(fileB)
     show_nameB()
+
+def check_updates():
+    for m in doc_nameA:
+        if m.endswith('.txt'): #Checks if the file is a .txt document
+            files = (fileA+'\\'+m) #Stores the address of the text documents to use later
+            mod_time_unix = os.stat(files).st_mtime # Gets the unix time stamp
+            mod_time = datetime.fromtimestamp(mod_time_unix) #converts this unix timestamp to a datetime object
+            time_since_mod = (t - mod_time) # Gets the time diffrence between the current time and the time it was modified
+            if time_since_mod < timedelta(days=1): # If time_since_mod is less than 1 day (meaning it was modified that day) -->
+                shutil.copy(files,fileB) # It copies the file to dst
+                print(m, 'has been copied to ', fileB)
+            else:
+                print("This file hasn't been changed: ", m)
 
 def show_nameA():
     for x in doc_nameA:
@@ -29,6 +47,21 @@ def show_nameB():
     for x in doc_nameB:
         #time = datetime.fromtimestamp(os.stat(fileA+"/"+x).st_mtime)
         fileB_list.insert(END, str(x))
+
+def manual_updates():
+    for m in doc_nameA:
+        if m.endswith('.txt'): #Checks if the file is a .txt document
+            files = (fileA+'\\'+m) #Stores the address of the text documents to use later
+            mod_time_unix = os.stat(files).st_mtime # Gets the unix time stamp
+            mod_time = datetime.fromtimestamp(mod_time_unix) #converts this unix timestamp to a datetime object
+            time_since_mod = (t - mod_time) # Gets the time diffrence between the current time and the time it was modified
+            if time_since_mod > timedelta(days=1): # If time_since_mod is less than 1 day (meaning it was modified that day) -->
+                shutil.copy(files,fileB) # It copies the file to dst
+                print(m, 'has been copied to ', fileB)
+            else:
+                print("This file hasn't been changed: ", m)
+
+
 ##fileA = filedialog.askdirectory()
 ##print (fileA)
 ##doc_nameA = os.listdir(fileA)
